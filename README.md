@@ -220,7 +220,7 @@ docker exec -it <kafka-container-id> kafka-consumer-groups --bootstrap-server lo
 ```
 
 
-## 📚 Technologies Used
+##  Technologies Used
 
 - **Apache Kafka**: Distributed event streaming platform
 - **Apache Avro**: Data serialization framework
@@ -229,13 +229,13 @@ docker exec -it <kafka-container-id> kafka-consumer-groups --bootstrap-server lo
 - **fastavro**: Fast Avro implementation
 - **Docker & Docker Compose**: Containerization
 
-## 👤 Author
+##  Author
 
 **Nadun Dissanayake**
 
 ---
 
-## 📖 Additional Resources
+##  Additional Resources
 
 - [Apache Kafka Documentation](https://kafka.apache.org/documentation/)
 - [Confluent Kafka Python](https://docs.confluent.io/kafka-clients/python/current/overview.html)
