@@ -20,7 +20,7 @@ def load_schema():
 
 SCHEMA = load_schema()
 
-PRODUCTS = ["Phone", "Laptop", "Keyboard", "Mouse", "Headphones"]
+PRODUCTS = ["item1", "item2", "item3", "item4", "item5"]
 
 
 def avro_encode(record: dict) -> bytes:
