@@ -2,7 +2,7 @@
 
 A robust Kafka-based order processing pipeline demonstrating real-time event streaming, Avro serialization, retry mechanisms, and Dead Letter Queue (DLQ) pattern implementation using Python.
 
-## 🎯 Overview
+## Overview
 
 This project implements a complete event-driven architecture for processing orders with the following components:
 
@@ -11,7 +11,7 @@ This project implements a complete event-driven architecture for processing orde
 - **DLQ Consumer**: Monitors and logs failed messages for inspection and potential reprocessing
 - **Infrastructure**: Dockerized Kafka and Zookeeper setup for easy deployment
 
-## 🏗️ Architecture
+## Architecture
 
 ```mermaid
 graph LR
@@ -27,14 +27,14 @@ graph LR
 
 ### Key Features
 
-- ✅ **Avro Schema Evolution**: Type-safe message serialization using Apache Avro
-- ✅ **Retry Logic**: Configurable retry attempts (default: 3) with exponential backoff
-- ✅ **Dead Letter Queue**: Automatic routing of failed messages for later analysis
-- ✅ **Real-time Aggregation**: Running average calculation of order prices
-- ✅ **Docker Compose**: One-command infrastructure setup
-- ✅ **Error Handling**: Comprehensive exception handling and logging
+-  **Avro Schema Evolution**: Type-safe message serialization using Apache Avro
+-  **Retry Logic**: Configurable retry attempts (default: 3) with exponential backoff
+-  **Dead Letter Queue**: Automatic routing of failed messages for later analysis
+-  **Real-time Aggregation**: Running average calculation of order prices
+-  **Docker Compose**: One-command infrastructure setup
+-  **Error Handling**: Comprehensive exception handling and logging
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 .
@@ -49,7 +49,7 @@ graph LR
     └── dlq_consumer.py        # Dead Letter Queue consumer
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -80,7 +80,7 @@ graph LR
    docker-compose ps
    ```
 
-## 🎮 Usage
+##  Usage
 
 ### Running the Producer
 
@@ -138,7 +138,7 @@ DLQ consumer started…
 }
 ```
 
-## 📊 Data Schema
+##  Data Schema
 
 ### Order Schema (Avro)
 
@@ -168,30 +168,6 @@ DLQ consumer started…
 }
 ```
 
-## ⚙️ Configuration
-
-### Kafka Topics
-
-| Topic | Purpose | Partitions | Replication Factor |
-|-------|---------|------------|-------------------|
-| `orders` | Main order events | 1 | 1 |
-| `orders_dlq` | Failed order events | 1 | 1 |
-
-### Consumer Groups
-
-| Group ID | Topic | Purpose |
-|----------|-------|---------|
-| `order-group` | `orders` | Main order processing |
-| `dlq-group` | `orders_dlq` | DLQ monitoring |
-
-### Retry Configuration
-
-Modify `MAX_RETRIES` in `consumer/consumer.py`:
-
-```python
-MAX_RETRIES = 3  # Number of retry attempts before DLQ
-```
-
 ### Failure Condition
 
 Current implementation fails orders with price > 100. Customize in `consumer/consumer.py`:
@@ -201,7 +177,7 @@ def fail_condition(order):
     return order["price"] > 100
 ```
 
-## 🔧 Docker Compose Configuration
+## Docker Compose Configuration
 
 The `docker-compose.yml` sets up:
 
@@ -229,18 +205,6 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
 ```
 
-## 🧪 Testing
-
-### Manual Testing Steps
-
-1. **Start infrastructure**: `docker-compose up -d`
-2. **Run consumer**: `python consumer/consumer.py`
-3. **Run DLQ consumer**: `python dlq_consumer/dlq_consumer.py`
-4. **Run producer**: `python producer/producer.py`
-5. **Observe**:
-   - Orders with price ≤ 100 are processed successfully
-   - Orders with price > 100 fail after 3 retries and go to DLQ
-   - Running average is calculated and displayed
 
 ### Expected Behavior
 
@@ -248,17 +212,6 @@ services:
 - **Failed orders**: Retry 3 times with 1-second delay, then sent to DLQ
 - **DLQ messages**: Logged with original order data and failure reason
 
-## 📈 Monitoring
-
-### Check Kafka Topics
-
-```bash
-# List topics
-docker exec -it <kafka-container-id> kafka-topics --list --bootstrap-server localhost:9092
-
-# Describe topic
-docker exec -it <kafka-container-id> kafka-topics --describe --topic orders --bootstrap-server localhost:9092
-```
 
 ### View Consumer Group Offsets
 
@@ -266,39 +219,6 @@ docker exec -it <kafka-container-id> kafka-topics --describe --topic orders --bo
 docker exec -it <kafka-container-id> kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group order-group
 ```
 
-## 🛠️ Troubleshooting
-
-### Common Issues
-
-**Issue**: `KafkaException: Failed to get metadata`
-- **Solution**: Ensure Docker containers are running: `docker-compose ps`
-
-**Issue**: `ModuleNotFoundError: No module named 'confluent_kafka'`
-- **Solution**: Install dependencies: `pip install confluent-kafka fastavro`
-
-**Issue**: Messages not being consumed
-- **Solution**: Check consumer group offset reset: `auto.offset.reset: earliest`
-
-### Cleanup
-
-```bash
-# Stop containers
-docker-compose down
-
-# Remove volumes (clears all data)
-docker-compose down -v
-```
-
-## 🔄 Future Enhancements
-
-- [ ] Add Schema Registry for centralized schema management
-- [ ] Implement exactly-once semantics (EOS)
-- [ ] Add metrics and monitoring (Prometheus/Grafana)
-- [ ] Implement configurable retry strategies (exponential backoff)
-- [ ] Add unit and integration tests
-- [ ] Support multiple partitions for scalability
-- [ ] Add authentication and encryption (SSL/SASL)
-- [ ] Implement idempotent producer
 
 ## 📚 Technologies Used
 
@@ -308,10 +228,6 @@ docker-compose down -v
 - **confluent-kafka-python**: Kafka client library
 - **fastavro**: Fast Avro implementation
 - **Docker & Docker Compose**: Containerization
-
-## 📝 License
-
-This project is created for educational purposes as part of a Kafka assignment.
 
 ## 👤 Author
 
